@@ -1,18 +1,22 @@
 #include <Arduino.h>
 
-// put function declarations here:
-int myFunction(int, int);
+#define BUTTON_PIN 42
+
+int16_t counter = 0;
+
+
+void IRAM_ATTR reaction() {
+  counter++;
+  Serial.printf("Button Pressed! Count: %d\n", counter);
+}
+
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  pinMode(BUTTON_PIN, INPUT_PULLDOWN);
+  Serial.begin(115200);
+  attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), reaction, FALLING);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
 }
