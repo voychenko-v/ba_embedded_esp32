@@ -1,18 +1,27 @@
 #include <Arduino.h>
 
-// put function declarations here:
-int myFunction(int, int);
+constexpr uint8_t RELAY_PIN_IN = 4;
+constexpr uint16_t INTERVAL = 1000;
+
+uint32_t lastToggle = 0;
+bool relayState = false;
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+	Serial.begin(115200);
+	pinMode(RELAY_PIN_IN, OUTPUT);
+	digitalWrite(RELAY_PIN_IN, LOW);
+	delay(1000);
+	Serial.println("Relay test started");
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
+	uint32_t now = millis();
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+	if (now - lastToggle >= INTERVAL) {
+		lastToggle = now;
+		relayState = !relayState;
+		digitalWrite(RELAY_PIN_IN, relayState ? HIGH : LOW);
+
+		Serial.println(relayState ? "Relay ON" : "Relay OFF");
+	}
 }
