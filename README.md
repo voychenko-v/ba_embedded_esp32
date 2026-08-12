@@ -4,7 +4,7 @@ PWM-сигнал формується вручну на `millis()`/`micros()` (�
 
 ## Схема підключення
 
-<img src="assets/schematic.png" width="450" alt="Wiring schematic">
+<img src="assets/schema.png" width="450" alt="Wiring schematic">
 
 | Сигнал | ESP32-S3 пін | Компонент |
 |---|---|---|
